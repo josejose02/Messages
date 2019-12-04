@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="">
+            <div class="row">
+                <div class="col-6 text-center">
+                    <h1 class="mt-5">Results (List)</h1>
+                    {% if params.user %}
+                        <p class="lead"> {{ params.user }}</p>
+                    {% endif %}
+                </div>
+                <div class="col-6">
+                    {% if params.user %}
+                        <p class="lead"> Total number of messages:
+                            <span> {{ params.user_data['messages']['count'] }}
+                                ({{ '%0.1f'| format(params.user_data['messages']['count'] / params.meta['messages']['count'] * 100) }}%)
+                            </span></p>
+                        <p class="lead"> Total number of words: <span> {{ params.user_data['words']['count'] }}
+                            ({{ '%0.1f'| format(params.user_data['words']['count'] / params.meta['words']['count'] * 100) }}%)
+                        </span>
+                        </p>
+                        <p class="lead"> Total number of emojis:
+                            <span> {{ params.user_data['emojis']['count'] }}
+                                ({{ '%0.1f'| format(params.user_data['emojis']['count'] / params.meta['emojis']['count'] * 100) }}%)
+                            </span></p>
+                    {% else %}
+                        <p class="lead"> Number of users: <span> {{ params.meta['users']['count'] }} </span></p>
+                        <p class="lead"> Total number of messages: <span> {{ params.meta['messages']['count'] }} </span>
+                        </p>
+                        <p class="lead"> Total number of words: <span> {{ params.meta['words']['count'] }} </span></p>
+                        <p class="lead"> Total number of emojis: <span> {{ params.meta['emojis']['count'] }} </span></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        {% if 1 %}
+            <div class="row mb-2">
+                <div class="col-12 float-none">
+                    <button class="btn btn-success dropdown-toggle" type="button" data-toggle="collapse"
+                            data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        View Users ({{ params.meta['users']['count'] }})
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="btn-toolbar collapse" role="toolbar" id="collapseExample">
+                    {% for i, user in params.enumerate(params.meta['users']['names']) %}
+                        {% if not i // 4 or not i %}
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                        {% endif %}
+                    <a href='/results/{{ user }}?file=
+                            {{ params.file }}{% if params.cache %}&cache={{ params.cache }}{% endif %}' role="button"
+                       class="btn btn-secondary mb-2 mr-2"> {{ user }}</a>
+                    {% if not i // 4 or not i %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+
+                <h2 class="mt-5"> {{params.title}}</h2>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{{ params.name }}</th>
+                        <th scope="col">{{ params.description }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for i, val in params.enumerate(params.list) %}
+                        <tr>
+                            <th scope="row"> {{ i + 1 }} </th>
+                            <td> {{ val.char }} </td>
+                            <td> {{ val.count }} ({{ '%0.1f'| format(val.count / params.global * 100) }}%)</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+        </div>
+    </div>
+{% endblock %}

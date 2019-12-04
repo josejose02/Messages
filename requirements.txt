@@ -1,0 +1,7 @@
+fpdf
+pandas
+numpy
+matplotlib
+seaborn
+emoji
+Flask-Images

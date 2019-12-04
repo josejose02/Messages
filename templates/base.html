@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Message analyser</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                Whatsapp Message Analyser
+                <span class="badge badge-success"> alpha </span>
+            </a>
+            {% if params.main %}
+            <a role="button" href="/" class="btn btn-outline-info my-2 my-sm-0"> New </a>
+            {% endif %}
+            {% if params.user %}
+            <a role="button" href="/results/?file={{ params.file }}{% if params.cache %}&cache={{ params.cache }}{% endif %}" class="btn btn-outline-info my-2 my-sm-0"> Back </a>
+            {% endif %}
+            {% if params.back %}
+            <a role="button" href="/results/?file={{ params.file }}{% if params.cache %}&cache={{ params.cache }}{% endif %}" class="btn btn-outline-info my-2 my-sm-0"> Back </a>
+            {% endif %}
+        </div>
+    </nav>
+</div>
+<div class="px-lg-5 pb-lg-5">
+    {% block content %}
+    {% endblock %}
+</div>
+<div class="footer"></div>
+</body>
+</html>
